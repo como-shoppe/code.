@@ -135,7 +135,7 @@
   function copyAndRedirect(code) {
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(code).then(() => {
-        handleSuccess(code);
+        handleSuccess();
       }).catch(err => {
         fallbackCopy(code);
       });
@@ -154,15 +154,14 @@
     textArea.select();
     try {
       document.execCommand('copy');
-      handleSuccess(code);
     } catch (err) {
-      alert('複製失敗，請手動複製折扣碼：' + code);
+      console.error('複製失敗', err);
     }
     document.body.removeChild(textArea);
+    handleSuccess();
   }
 
-  function handleSuccess(code) {
-    alert('已複製折扣碼【' + code + '】！即將前往蝦皮');
+  function handleSuccess() {
     window.location.href = 'https://s.shopee.tw/1gIS38bX2Y';
   }
 </script>
